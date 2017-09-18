@@ -1,6 +1,6 @@
 package lispy;
 
-public class Symbol {
+public class Symbol implements Emitter {
 	String name;
 
 	Symbol(String name) {
@@ -13,5 +13,9 @@ public class Symbol {
 	
 	public String toString() {
 		return String.format("Symbol<%s>", name);
+	}
+
+	public String emit() {
+		return name;
 	}
 }
