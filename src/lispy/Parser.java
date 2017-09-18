@@ -9,7 +9,7 @@ public class Parser {
 
 	List<String> tokens;
 
-	Object parse(String program) {
+	public Object parse(String program) {
 		return readFromTokens(tokenize(program));
 	}
 

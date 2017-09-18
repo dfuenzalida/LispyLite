@@ -10,10 +10,20 @@ public class Eval {
 		Parser parser = new Parser();
 		return eval(parser.parse(program));
 	}
-	
+
+	public static Object eval(String program, Environment env) {
+		Parser parser = new Parser();
+		return eval(parser.parse(program), env);
+	}
+
 	public static String emit(String program) {
 		Parser parser = new Parser();
 		return emit(parser.parse(program));
+	}
+
+	public static String emit(String program, Environment env) {
+		Parser parser = new Parser();
+		return emit(parser.parse(program), env);
 	}
 	
 	public static Object eval(Object x) {
@@ -62,7 +72,7 @@ public class Eval {
 				Object exp = args.get(2);
 				Object evaled = eval(exp, env);
 				env.update(var.getName(), evaled);
-				return evaled;
+				return env;
 			} else if ("set!".equals(form)) {
 				Symbol var = (Symbol) args.get(1);
 				Object exp = args.get(2);
@@ -111,7 +121,7 @@ public class Eval {
 		if (o instanceof Symbol) {
 			Symbol s = (Symbol) o;
 			Environment e = env.find(s.getName());
-			return ((Symbol) e.get(s.getName())).emit();
+			return ((Emitter) e.get(s.getName())).emit();
 		} else if (!(o instanceof List)) {
 			return o.toString(); // TODO Review
 		} else {
@@ -142,9 +152,11 @@ public class Eval {
 				Symbol var = (Symbol) args.get(1);
 				Object exp = args.get(2);
 				Object evaled = eval(exp, env);
-				env.update(var.getName(), evaled);
-				//return evaled;
-				return "TODO: implement DEFINE";
+				env.update(var.getName(), evaled); // TODO remove?
+				return String.format("lispy[\"%s\"] = %s;",
+						var.name,
+						emit(exp, env)
+						);
 			} else if ("set!".equals(form)) {
 				Symbol var = (Symbol) args.get(1);
 				Object exp = args.get(2);
@@ -163,7 +175,6 @@ public class Eval {
 				Symbol s;
 				Environment e;
 				Function f;
-				String functionName;
 
 				// Evaluate the arguments
 				List evaluated = new ArrayList();
@@ -175,15 +186,15 @@ public class Eval {
 					s = (Symbol) args.get(0);
 					e = env.find(s.getName());
 					f = (Function) e.get(s.getName());
-					functionName = s.getName();
+					String functionName = s.getName();
 
 					// Emit JS for a Function call with a known symbol
-					return String.format("lispy[\"%s\"].apply(this, %s)", functionName, evaluated);
+					return String.format("lispy[\"%s\"].apply(this, %s)",
+							functionName,
+							evaluated);
 				} else {
 					e = env;
 					f = (Function) eval(args.get(0), env);
-					functionName = args.get(0).toString();
-					//return "TODO: " + functionName + "!!!";
 					return String.format("(%s).apply(this, %s)",
 							emit(args.get(0), env),
 							args.subList(1, args.size())
