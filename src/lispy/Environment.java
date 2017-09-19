@@ -19,6 +19,14 @@ public class Environment {
 		env.put("*", new ProductFunction());
 		env.put("/", new DivisionFunction());
 		
+		env.put("display", new Function() {
+			@Override
+			public Object apply(List args) {
+				System.out.println(args.get(0));
+				return null;
+			}
+		});
+
 		env.put(">", new GreaterThanFunction());
 		env.put("<=", new Function() {
 			GreaterThanFunction gtf = new GreaterThanFunction();

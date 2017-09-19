@@ -139,21 +139,19 @@ public class Eval {
 				Object test = args.get(1);
 				Object conseq = args.get(2);
 				Object alt = args.get(3);
-				Object expr;
-				Object testEvaled = eval(test, env);
-				if (testEvaled instanceof List && ((List)testEvaled).isEmpty()) {
-					expr = alt;
-				} else {
-					expr = conseq;
-				}
-				//return eval(expr, env);
-				return "TODO: implement IF";
+				// TODO actually emit 'if (true? %s)' where 'true?' has the Scheme semantics
+				return String.format(
+						"(function(){if (%s){return %s;} else {return %s;}})()",
+						emit(test, env),
+						emit(conseq, env),
+						emit(alt, env));
 			} else if ("define".equals(form)) {
 				Symbol var = (Symbol) args.get(1);
 				Object exp = args.get(2);
 				Object evaled = eval(exp, env);
 				env.update(var.getName(), evaled); // TODO remove?
-				return String.format("lispy[\"%s\"] = %s;",
+				return String.format("%s[\"%s\"] = %s;",
+						Compiler.jsNamespace,
 						var.name,
 						emit(exp, env)
 						);
@@ -189,7 +187,8 @@ public class Eval {
 					String functionName = s.getName();
 
 					// Emit JS for a Function call with a known symbol
-					return String.format("lispy[\"%s\"].apply(this, %s)",
+					return String.format("%s[\"%s\"].apply(this, %s)",
+							Compiler.jsNamespace,
 							functionName,
 							evaluated);
 				} else {

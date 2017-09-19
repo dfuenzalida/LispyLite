@@ -31,5 +31,4 @@ public class PlusFunction implements Function {
 			return total;
 		}
 	}
-
 }
