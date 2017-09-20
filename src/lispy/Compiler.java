@@ -42,7 +42,7 @@ public class Compiler {
 
 		BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
 		BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile, false));
-		writer.write(prelude(namespace));
+		writer.write(prelude(namespace) + "\n");
 		String line;
 		Environment env = Environment.getGlobalEnvironment();
 		while ((line = reader.readLine()) != null) {
