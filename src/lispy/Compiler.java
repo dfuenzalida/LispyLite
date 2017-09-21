@@ -27,6 +27,26 @@ public class Compiler {
 		return builder.toString();
 	};
 
+	// Produce nested Javascript objects to simulate a namespace for the given name
+	public static String getNamespaceDefinition(String namespace) {
+		if (namespace.contains(".")) {
+			String[] components = namespace.split("\\.");
+			String result = components[0] + "={";
+			for (int i = 1; i < components.length; i++) {
+				result += components[i] + ":{";
+			}
+
+			for (int i = 1; i < components.length; i++) {
+				result += "}";
+			}
+
+			result += "};";
+			return result;
+		} else {
+			return String.format("%s ||= {};", namespace);
+		}
+	}
+
 	public static void main(String[] args) throws Exception {
 		if (args.length != 1) {
 			System.err.println("Usage: java lispy.Compiler path/to/file.scm\nOutputs 'file.js' in the current directory.");
@@ -42,6 +62,7 @@ public class Compiler {
 
 		BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
 		BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile, false));
+		writer.write(getNamespaceDefinition(namespace) + "\n");
 		writer.write(prelude(namespace) + "\n");
 		String line;
 		Environment env = Environment.getGlobalEnvironment();
