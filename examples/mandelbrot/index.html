@@ -1,0 +1,24 @@
+<html>
+  <body style="background-color: black">
+    <canvas id="canvas" width="800" height="600" style="display: block; margin: auto; border: 1px solid grey;"></canvas>
+    <script src="mandel.demo.js"></script>
+    <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      function paint() {
+
+        for (x = 0; x < 800; x++) {
+          for (y = 0; y < 600; y++) {
+            var x0 = mandel.demo.scale(x, 800, -2.5, 1.5);
+            var y0 = mandel.demo.scale(y, 600, -1.5, 1.5);
+            iteration = mandel.demo.iterations(x0, y0);
+            ctx.fillStyle = 'rgb(' + iteration + ',' + iteration + ', 0, 1.0)';
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+      }
+
+      paint();
+    </script>
+  </body>
+</html>
