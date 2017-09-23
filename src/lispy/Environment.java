@@ -27,6 +27,28 @@ public class Environment {
 			}
 		});
 
+		env.put("and", new Function() {
+			@Override
+			public Object apply(List args) {
+				if (args.get(0) == Environment.FALSE || args.get(1) == Environment.FALSE) {
+					return Environment.FALSE;
+				} else {
+					return args.get(0);
+				}
+			}
+		});
+
+		env.put("or", new Function() {
+			@Override
+			public Object apply(List args) {
+				if (args.get(0) == Environment.FALSE && args.get(1) == Environment.FALSE) {
+					return Environment.FALSE;
+				} else {
+					return args.get(0);
+				}
+			}
+		});
+
 		env.put(">", new GreaterThanFunction());
 		env.put("<=", new Function() {
 			GreaterThanFunction gtf = new GreaterThanFunction();
@@ -181,10 +203,14 @@ public class Environment {
 	}
 	
 	public Environment find(String var) {
-		if (env.containsKey(var)) {
-			return this;
-		} else {
-			return outer.find(var);
+		try {
+			if (env.containsKey(var)) {
+				return this;
+			} else {
+				return outer.find(var);
+			}
+		} catch (Exception ex) {
+			throw new RuntimeException(String.format("Couldn't find: %s", var), ex);
 		}
 	}
 	

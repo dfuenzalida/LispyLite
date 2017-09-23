@@ -21,6 +21,8 @@ public class Compiler {
 		builder.append("'<=': function(a,b){ return (a <= b); },");
 		builder.append("'>=': function(a,b){ return (a >= b); },");
 		builder.append("'>' : function(a,b){ return (a > b); },");
+		builder.append("'and' : function(a,b){ return (a && b); },");
+		builder.append("'or' : function(a,b){ return (a || b); },");
 		// TODO add the rest of the built-in functions
 		builder.append("'display': function(s){ if (console){ console.log(s); }; return null; }");
 		builder.append("};");
@@ -66,9 +68,15 @@ public class Compiler {
 		writer.write(prelude(namespace) + "\n");
 		String line;
 		Environment env = Environment.getGlobalEnvironment();
+		int lineNum = 0;
 		while ((line = reader.readLine()) != null) {
-			String output = Eval.emit(line, env);
-			writer.write(output + "\n");
+			try {
+				lineNum++;
+				String output = Eval.emit(line, env);
+				writer.write(output + "\n");
+			} catch (Exception ex) {
+				throw new RuntimeException(String.format("Error when compilining line %d: %s", lineNum, line), ex);
+			}
 		}
 		reader.close();
 		writer.flush();

@@ -121,7 +121,12 @@ public class Eval {
 		if (o instanceof Symbol) {
 			Symbol s = (Symbol) o;
 			Environment e = env.find(s.getName());
-			return ((Emitter) e.get(s.getName())).emit();
+			Object found = e.get(s.getName());
+			if (found instanceof Emitter) {
+				return ((Emitter) found).emit();
+			} else {
+				return String.format("%s['%s']", Compiler.jsNamespace, s.name);
+			}
 		} else if (!(o instanceof List)) {
 			return o.toString(); // TODO Review
 		} else {
@@ -150,7 +155,7 @@ public class Eval {
 				Object exp = args.get(2);
 				Object evaled = eval(exp, env);
 				env.update(var.getName(), evaled); // TODO remove?
-				return String.format("%s[\"%s\"] = %s;",
+				return String.format("%s['%s'] = %s;",
 						Compiler.jsNamespace,
 						var.name,
 						emit(exp, env)
@@ -183,11 +188,10 @@ public class Eval {
 				if (args.get(0) instanceof Symbol) {
 					s = (Symbol) args.get(0);
 					e = env.find(s.getName());
-					f = (Function) e.get(s.getName());
 					String functionName = s.getName();
 
 					// Emit JS for a Function call with a known symbol
-					return String.format("%s[\"%s\"].apply(this, %s)",
+					return String.format("%s['%s'].apply(this, %s)",
 							Compiler.jsNamespace,
 							functionName,
 							evaluated);
