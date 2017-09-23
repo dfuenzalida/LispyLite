@@ -79,8 +79,8 @@ public class EvalTests {
 
 	@Test
 	public void testRecursiveFunctions() {
-		Eval.eval(parser.parse("(define fib (lambda (n) (if (< n 2) 1 (+ (fib (- n 1)) (fib (- n 2))))))"), env);
-		assertEquals("recursive fib", new Integer(1), Eval.eval(parser.parse("(fib 1)"), env));
+		Eval.eval("(define fib (lambda (n) (if (< n 2) 1 (+ (fib (- n 1)) (fib (- n 2))))))", env);
+		assertEquals("recursive fib", new Integer(1), Eval.eval("(fib 1)", env));
 	}
 
 }

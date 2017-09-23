@@ -40,8 +40,7 @@ public class Eval {
 		if (o instanceof Symbol) {
 			Symbol s = (Symbol) o;
 			Environment e = env.find(s.getName());
-			//return e.get(s.getName());
-			return s.emit();
+			return e.get(s.getName());
 		} else if (!(o instanceof List)) {
 			return o;
 		} else {
