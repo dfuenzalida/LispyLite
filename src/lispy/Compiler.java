@@ -2,6 +2,7 @@ package lispy;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
@@ -57,7 +58,9 @@ public class Compiler {
 
 		String sourceFile = args[0];
 		String namespace = sourceFile.substring(0, sourceFile.lastIndexOf("."));
-		if (namespace.contains("/")) { namespace = namespace.substring(1 + namespace.lastIndexOf("/")); }
+		if (namespace.contains(File.separator)) {
+			namespace = namespace.substring(1 + namespace.lastIndexOf(File.separator));
+		}
 		Compiler.jsNamespace = namespace;
 		String targetFile = String.format("%s.js", namespace);
 		System.out.println(String.format("Output: %s", targetFile));
@@ -74,12 +77,12 @@ public class Compiler {
 				lineNum++;
 				String output = Eval.emit(line, env);
 				writer.write(output + "\n");
+				writer.flush();
 			} catch (Exception ex) {
 				throw new RuntimeException(String.format("Error when compilining line %d: %s", lineNum, line), ex);
 			}
 		}
 		reader.close();
-		writer.flush();
 		writer.close();
 	}
 }
