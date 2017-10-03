@@ -27,22 +27,22 @@ public class CompilerTests {
 
 	@Test
 	public void testDefine() throws Exception {
-		engine.eval(Eval.emit("(define foo 42)", env));
-		assertEquals("define", engine.eval(Eval.emit("foo", env)), 42);
+		engine.eval(Compiler.emit("(define foo 42)", env));
+		assertEquals("define", engine.eval(Compiler.emit("foo", env)), 42);
 		assertEquals("define", engine.eval("lispy['foo']"), 42);
 	}
 
 	@Test
 	public void testAdder() throws Exception {
-		engine.eval(Eval.emit("(define adder (lambda (a) (lambda (b) (+ a b))))", env));
-		engine.eval(Eval.emit("(define plus2 (adder 2))", env));
-		assertEquals("plus2", engine.eval(Eval.emit("(plus2 40)", env)), 42.0);
+		engine.eval(Compiler.emit("(define adder (lambda (a) (lambda (b) (+ a b))))", env));
+		engine.eval(Compiler.emit("(define plus2 (adder 2))", env));
+		assertEquals("plus2", engine.eval(Compiler.emit("(plus2 40)", env)), 42.0);
 	}
 
 	@Test
 	public void testRecursive() throws Exception {
-		engine.eval(Eval.emit("(define fib (lambda (n) (if (< n 2) 1 (+ (fib (- n 1)) (fib (- n 2))))))", env));
-		assertEquals("recursive", engine.eval(Eval.emit("(fib 10)", env)), 89.0);
+		engine.eval(Compiler.emit("(define fib (lambda (n) (if (< n 2) 1 (+ (fib (- n 1)) (fib (- n 2))))))", env));
+		assertEquals("recursive", engine.eval(Compiler.emit("(fib 10)", env)), 89.0);
 	}
 
 	@Test
@@ -57,9 +57,9 @@ public class CompilerTests {
 			"(define sqrt (lambda (x) (sqrt-iter 1.0 x)))"
 			};
 		for (String line: sqrtProgram) {
-			engine.eval(Eval.emit(line, env));
+			engine.eval(Compiler.emit(line, env));
 		}
-		assertTrue("square roots", Math.abs(16 - (Double) engine.eval(Eval.emit("(sqrt 256)", env))) < 0.001 );
+		assertTrue("square roots", Math.abs(16 - (Double) engine.eval(Compiler.emit("(sqrt 256)", env))) < 0.001 );
 	}
 
 }

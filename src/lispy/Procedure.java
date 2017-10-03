@@ -43,6 +43,6 @@ public class Procedure implements Function, Emitter {
 			Symbol param = (Symbol) oParam;
 			scopedEnv.update(param.name, param);
 		}
-		return String.format("function(%s){return %s;}",  paramsList.toString(), Eval.emit(body, scopedEnv));
+		return String.format("function(%s){return %s;}",  paramsList.toString(), Compiler.emit(body, scopedEnv));
 	}
 }
