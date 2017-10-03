@@ -23,8 +23,7 @@ public class Repl {
 				System.out.println("\n");
 				System.exit(0);
 			} catch (Exception ex) {
-				System.out.println(String.format("Error evaluating expression '%s': %s", line, ex));
-				ex.printStackTrace();
+				System.out.println(String.format("Error evaluating expression '%s': %s", line, ex.getMessage()));
 			}
 		}
 	}

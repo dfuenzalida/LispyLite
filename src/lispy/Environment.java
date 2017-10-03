@@ -210,7 +210,7 @@ public class Environment {
 				return outer.find(var);
 			}
 		} catch (Exception ex) {
-			throw new RuntimeException(String.format("Couldn't find: %s", var), ex);
+			throw new RuntimeException(String.format("Value '%s' is not defined", var), ex);
 		}
 	}
 	
