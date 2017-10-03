@@ -17,7 +17,9 @@ public class Repl {
 				System.out.print("lispy> ");
 				line = sc.nextLine();
 				Object result = Eval.eval(parser.parse(line), env);
-				System.out.println(result);
+				if (!(result instanceof Environment)) {
+					System.out.println(result);
+				}
 			} catch (NoSuchElementException nse) {
 				// Thrown when the Scanner can't read a line after a Ctrl-D
 				System.out.println("\n");
