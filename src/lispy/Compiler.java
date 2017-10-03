@@ -26,6 +26,7 @@ public class Compiler {
 		builder.append("'>' : function(a,b){ return (a > b); },");
 		builder.append("'and' : function(a,b){ return (a && b); },");
 		builder.append("'or' : function(a,b){ return (a || b); },");
+		builder.append("'pi' : Math.PI,");
 		// TODO add the rest of the built-in functions from Environment
 		builder.append("'display': function(s){ if (console){ console.log(s); }; return null; }");
 		builder.append("};");
