@@ -27,6 +27,11 @@ public class Compiler {
 		builder.append("'and' : function(a,b){ return (a && b); },");
 		builder.append("'or' : function(a,b){ return (a || b); },");
 		builder.append("'pi' : Math.PI,");
+		builder.append("'list' : Array.of,");
+		builder.append("'first' : function(a){ return a[0]; },");
+		builder.append("'rest' : function(a){ return a.slice(1); },");
+		builder.append("'cons' : function(a, b){ return b.slice(0).unshift(a); },");
+		builder.append("'list?' : function(a){ Object.prototype.toString.call(a) === '[object Array]'; },");
 		// TODO add the rest of the built-in functions from Environment
 		builder.append("'display': function(s){ if (console){ console.log(s); }; return null; }");
 		builder.append("};");
