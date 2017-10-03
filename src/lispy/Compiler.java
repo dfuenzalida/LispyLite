@@ -54,7 +54,7 @@ public class Compiler {
 			result += "};";
 			return result;
 		} else {
-			return String.format("%s ||= {};", namespace);
+			return String.format("%s={};", namespace);
 		}
 	}
 
@@ -183,13 +183,22 @@ public class Compiler {
 		Environment env = Environment.getGlobalEnvironment();
 		int lineNum = 0;
 		while ((line = reader.readLine()) != null) {
-			try {
-				lineNum++;
-				String output = Compiler.emit(line, env);
-				writer.write(output + "\n");
-				writer.flush();
-			} catch (Exception ex) {
-				throw new RuntimeException(String.format("Error when compilining line %d: %s", lineNum, line), ex);
+
+			// Strip off comments
+			if (line.contains(";")) {
+				line = line.substring(0, line.indexOf(";"));
+			}
+
+			// Attempt parsing only non-whitespace lines
+			if (!(line.matches("\\s*"))) {
+				try {
+					lineNum++;
+					String output = Compiler.emit(line, env);
+					writer.write(output + "\n");
+					writer.flush();
+				} catch (Exception ex) {
+					throw new RuntimeException(String.format("Error when compilining line %d: %s", lineNum, line), ex);
+				}
 			}
 		}
 		reader.close();
