@@ -31,8 +31,13 @@ public class Compiler {
 		builder.append("'first' : function(a){ return a[0]; },");
 		builder.append("'rest' : function(a){ return a.slice(1); },");
 		builder.append("'cons' : function(a, b){ return b.slice(0).unshift(a); },");
-		builder.append("'list?' : function(a){ Object.prototype.toString.call(a) === '[object Array]'; },");
-		// TODO add the rest of the built-in functions from Environment
+		builder.append("'eq?' : function(a,b){ return a === b; },");
+		builder.append("'equal?' : function(a,b){ return a == b; },");
+		builder.append("'apply' : function(f,args){ return f.apply(this, args); },");
+		builder.append("'list?' : function(a){ return (Object.prototype.toString.call(a) === '[object Array]'); },");
+		builder.append("'number?' : function(a){ return (Object.prototype.toString.call(a) === '[object Number]'); },");
+		builder.append("'symbol?' : function(a){ return (['[object Number]','[object Array]'].indexOf(a) < 0); },");
+		builder.append("'null?' : function(a){ return ((a === null) || (a === [])); },");
 		builder.append("'display': function(s){ if (console){ console.log(s); }; return null; }");
 		builder.append("};");
 		return builder.toString();

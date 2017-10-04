@@ -84,17 +84,6 @@ public class Environment {
 		env.put("rest", new CdrFunction());
 		env.put("cons", new ConsFunction());
 		
-		env.put("list?", new Function(){
-			@Override
-			public Object apply(List args) {
-				if (args.get(0).getClass().getName().contains("List")) {
-					return args.get(0);
-				} else {
-					return FALSE;
-				}
-			}
-		});
-		
 		// eq? tests for same object reference
 		env.put("eq?", new Function(){
 			@Override
