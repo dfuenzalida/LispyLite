@@ -30,7 +30,7 @@ public class Environment {
 		env.put("and", new Function() {
 			@Override
 			public Object apply(List args) {
-				if (args.get(0) == Environment.FALSE || args.get(1) == Environment.FALSE) {
+				if (args.get(0).equals(Environment.FALSE) || args.get(1).equals(Environment.FALSE)) {
 					return Environment.FALSE;
 				} else {
 					return args.get(0);
@@ -41,10 +41,14 @@ public class Environment {
 		env.put("or", new Function() {
 			@Override
 			public Object apply(List args) {
-				if (args.get(0) == Environment.FALSE && args.get(1) == Environment.FALSE) {
+				if (args.get(0).equals(Environment.FALSE) && args.get(1).equals(Environment.FALSE)) {
 					return Environment.FALSE;
 				} else {
-					return args.get(0);
+					if (args.get(0).equals(Environment.FALSE)) {
+						return args.get(1);
+					} else {
+						return args.get(0);
+					}
 				}
 			}
 		});
