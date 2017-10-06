@@ -12,7 +12,8 @@
             var x0 = mandel.demo.scale(x, 800, -2.5, 1.5);
             var y0 = mandel.demo.scale(y, 600, -1.5, 1.5);
             iteration = mandel.demo.iterations(x0, y0);
-            ctx.fillStyle = 'rgb(' + iteration + ',' + iteration + ', 0, 1.0)';
+            hexVal = ((iteration < 10)? "0":"") + iteration.toString(16);
+            ctx.fillStyle = '#' + hexVal + hexVal + '00';
             ctx.fillRect(x, y, 1, 1);
           }
         }
