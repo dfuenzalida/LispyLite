@@ -9,9 +9,12 @@ public class Repl {
 		System.out.println("Welcome to the Lispy REPL");
 		System.out.println("Enter '(quit)' or Ctrl-D to exit.");
 		String line = null;
+		Parser parser = new Parser();
 		Environment env = Environment.getGlobalEnvironment();
+		for (String builtin: Environment.getBuiltins()) {
+			Eval.eval(parser.parse(builtin), env);
+		}
 		while (true) {
-			Parser parser = new Parser();
 			try {
 				Scanner sc = new Scanner(System.in);
 				System.out.print("lispy> ");

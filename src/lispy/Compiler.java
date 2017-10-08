@@ -182,8 +182,16 @@ public class Compiler {
 
 		BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
 		BufferedWriter writer = new BufferedWriter(new FileWriter(targetFile, false));
+
+		// Emit namespace and prelude definitions
 		writer.write(getNamespaceDefinition(namespace) + "\n");
 		writer.write(prelude(namespace) + "\n");
+
+		// Emit builtin functions
+		for (String builtin: Environment.getBuiltins()) {
+			writer.write(Compiler.emit(builtin) + "\n");
+		}
+
 		String line;
 		Environment env = Environment.getGlobalEnvironment();
 		int lineNum = 0;

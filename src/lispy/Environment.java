@@ -194,6 +194,19 @@ public class Environment {
 	public static Environment getGlobalEnvironment() {
 		return new Environment();
 	}
+
+	public static String[] getBuiltins() {
+		return new String[] {
+				"(define foldr (lambda (f z xs) (if xs (f (first xs) (foldr f z (rest xs))) z)))",
+				"(define concat (lambda (xs ys) (foldr cons ys xs)))",
+				"(define inc (lambda (x) (+ x 1)))",
+				"(define dec (lambda (x) (- x 1)))",
+				"(define count (lambda (xs) (foldr (lambda (_ x) (inc x)) 0 xs)))",
+				"(define map (lambda (f xs) (foldr (lambda (y ys) (cons (f y) ys)) (list) xs)))",
+				"(define filter (lambda (f xs) (foldr (lambda (y ys) (if (f y) (cons y ys) ys)) (list) xs)))",
+				"(define reduce (lambda (f val coll) (foldr f val coll)))",
+		};
+	}
 	
 	public Environment find(String var) {
 		try {
