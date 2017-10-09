@@ -205,6 +205,7 @@ public class Environment {
 				"(define map (lambda (f xs) (foldr (lambda (y ys) (cons (f y) ys)) (list) xs)))",
 				"(define filter (lambda (f xs) (foldr (lambda (y ys) (if (f y) (cons y ys) ys)) (list) xs)))",
 				"(define reduce (lambda (f val coll) (foldr f val coll)))",
+				"(define #f (list))",
 		};
 	}
 	
