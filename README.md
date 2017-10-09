@@ -1,6 +1,6 @@
 # LispyLite
 
-LispyLite is a toy Scheme interpreter and compiler to JavaScript, based on the [lis.py Scheme interpreter by Peter Norvig](http://norvig.com/lispy.html)
+LispyLite is a toy/experimental Scheme interpreter and compiler to JavaScript, written in Java. It's based on the [lis.py Scheme interpreter by Peter Norvig](http://norvig.com/lispy.html).
 
 ## What's included
 
@@ -12,6 +12,7 @@ LispyLite is a toy Scheme interpreter and compiler to JavaScript, based on the [
 
 * Any other datatype (eg. Strings, symbols)
 * Any data structures beyond lists
+* Any actual Scheme specification (such as R5RS or later)
 * Laziness
 * Macros
 * Host language interop
