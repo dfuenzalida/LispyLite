@@ -96,11 +96,17 @@ $ cat examples/roots.scm
 
 $ java -cp bin lispy.Compiler examples/roots.scm
 Output: roots.js
+```
 
+Now you can run the resulting output file in a browser, or in the NodeJS runtime:
+
+```
 $ node roots.js
 16.00000352670594
 
 ```
+
+See [examples/mandelbrot](examples/mandelbrot) for an example that renders an image in the browser.
 
 ### License
 
