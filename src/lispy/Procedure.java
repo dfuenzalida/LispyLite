@@ -22,7 +22,14 @@ public class Procedure implements Function, Emitter {
 
 	@Override
 	public String toString() {
-		return String.format("Proc<params=%s>", params);
+		String separator = "";
+		StringBuilder builder = new StringBuilder();
+		for (Object p: params) {
+			builder.append(separator);
+			builder.append(p.toString());
+			separator = " ";
+		}
+		return String.format("(lambda (%s) ...)", builder.toString());
 	}
 	
 	public String emit() {

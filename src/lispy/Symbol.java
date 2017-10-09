@@ -12,7 +12,7 @@ public class Symbol implements Emitter {
 	}
 	
 	public String toString() {
-		return String.format("Symbol<%s>", name);
+		return String.format("%s", name);
 	}
 
 	public String emit() {
