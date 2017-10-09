@@ -2,13 +2,29 @@
 
 LispyLite is a toy Scheme interpreter and compiler to JavaScript, based on the [lis.py Scheme interpreter by Peter Norvig](http://norvig.com/lispy.html)
 
+## What's included
+
+* Interactive REPL
+* JavaScript transpiler
+* Support for integer and floating point numbers
+
+### Not planned to support
+
+* Any other datatype (eg. Strings, symbols)
+* Any data structures beyond lists
+* Laziness
+* Macros
+* Host language interop
+
 ## Usage
 
-You can use your favorite IDE to add the source files to a project, or just compile them from the command line with:
+You can compile from the command line with:
 
 ```
 javac -d bin  src/lispy/*
 ```
+
+You can use your favorite IDE to add the source files to a project. You'll need the JUnit4 library to compile/run the tests.
 
 ### Interpreter
 
