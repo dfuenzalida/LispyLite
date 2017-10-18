@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class CompilerTests {
+public class CompilerTest {
 
 	Parser parser;
 	Environment env;

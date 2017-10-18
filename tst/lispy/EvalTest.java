@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EvalTests {
+public class EvalTest {
 	
 	Parser parser;
 	Environment env;
