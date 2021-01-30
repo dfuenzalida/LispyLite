@@ -36,13 +36,13 @@ public class CompilerTest {
 	public void testAdder() throws Exception {
 		engine.eval(Compiler.emit("(define adder (lambda (a) (lambda (b) (+ a b))))", env));
 		engine.eval(Compiler.emit("(define plus2 (adder 2))", env));
-		assertEquals("plus2", engine.eval(Compiler.emit("(plus2 40)", env)), 42.0);
+		assertEquals("plus2", engine.eval(Compiler.emit("(plus2 40)", env)), 42);
 	}
 
 	@Test
 	public void testRecursive() throws Exception {
 		engine.eval(Compiler.emit("(define fib (lambda (n) (if (< n 2) 1 (+ (fib (- n 1)) (fib (- n 2))))))", env));
-		assertEquals("recursive", engine.eval(Compiler.emit("(fib 10)", env)), 89.0);
+		assertEquals("recursive", engine.eval(Compiler.emit("(fib 10)", env)), 89);
 	}
 
 	@Test
