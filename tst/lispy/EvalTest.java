@@ -40,32 +40,32 @@ public class EvalTest {
 
 	@Test
 	public void testBuiltins() {
-		assertEquals("+ int int...", new Integer(10), Eval.eval("(+ 1 2 3 4)"));
-		assertEquals("- int int...", new Integer(1), Eval.eval("(- 10 4 3 2)"));
-		assertEquals("+ float int", new Float(3.5f), Eval.eval("(+ 1.5 2)"));
+		assertEquals("+ int int...", 10, Eval.eval("(+ 1 2 3 4)"));
+		assertEquals("- int int...", 1, Eval.eval("(- 10 4 3 2)"));
+		assertEquals("+ float int", 3.5f, Eval.eval("(+ 1.5 2)"));
 
-		assertEquals("> int int", new Integer(10), Eval.eval("(> 10 8)"));
-		assertEquals("> float int", new Float(2.0f), Eval.eval("(> 2.0 1)"));
-		assertEquals("> int float", new Integer(36), Eval.eval("(> 36 12.0)"));
+		assertEquals("> int int", 10, Eval.eval("(> 10 8)"));
+		assertEquals("> float int", 2.0f, Eval.eval("(> 2.0 1)"));
+		assertEquals("> int float", 36, Eval.eval("(> 36 12.0)"));
 		assertEquals("> int int (false)", Environment.FALSE, Eval.eval("(> 12 36)"));
-		assertEquals("<= int float", new Integer(12), Eval.eval("(<= 12 36.0)"));
-		assertEquals("<= int int", new Integer(12), Eval.eval("(<= 12 12)"));
-		assertEquals("<= int float", new Integer(12), Eval.eval("(<= 12 12.0)"));
+		assertEquals("<= int float", 12, Eval.eval("(<= 12 36.0)"));
+		assertEquals("<= int int", 12, Eval.eval("(<= 12 12)"));
+		assertEquals("<= int float", 12, Eval.eval("(<= 12 12.0)"));
 
-		assertEquals("< int int", new Integer(8), Eval.eval("(< 8 10)"));
-		assertEquals("< float int", new Integer(1), Eval.eval("(< 1 2.0)"));
-		assertEquals("< int float", new Integer(12), Eval.eval("(< 12 36)"));		
+		assertEquals("< int int", 8, Eval.eval("(< 8 10)"));
+		assertEquals("< float int", 1, Eval.eval("(< 1 2.0)"));
+		assertEquals("< int float", 12, Eval.eval("(< 12 36)"));		
 		assertEquals("< int int (false)", Environment.FALSE, Eval.eval("(< 36 12)"));
-		assertEquals(">= float int", new Float(36.0), Eval.eval("(>= 36.0 12)"));
-		assertEquals(">= float int", new Float(36.0), Eval.eval("(>= 36.0 36)"));
+		assertEquals(">= float int", 36f, Eval.eval("(>= 36.0 12)"));
+		assertEquals(">= float int", 36f, Eval.eval("(>= 36.0 36)"));
 
-		assertEquals("+ of sexps", new Float(15.0), Eval.eval("(+ (- 20 10) (+ 2.5 2.5))"));
+		assertEquals("+ of sexps", 15f, Eval.eval("(+ (- 20 10) (+ 2.5 2.5))"));
 		
 		assertEquals("list", Eval.eval("(list 1 2 (+ 1 2) (list 4 5 6))"), Eval.eval("(list 1 2 3 (list 4 5 6)))"));
 		assertEquals("cons'ing to create list", Eval.eval("(list 1 2 3)"), Eval.eval("(cons 1 (cons 2 (cons 3 (list))))"));
 		assertEquals("cons", Eval.eval("(list 1 2 3))"), Eval.eval("(cons 1 (list 2 3)))"));
 		
-		assertEquals("apply", new Integer(3), Eval.eval("(apply + (list 1 2))"));
+		assertEquals("apply", 3, Eval.eval("(apply + (list 1 2))"));
 	}
 	
 	@Test
@@ -73,8 +73,8 @@ public class EvalTest {
 		Eval.eval("(define add +)", env);
 		Eval.eval("(define square (lambda (x) (* x x)))", env);
 		Object parsed = parser.parse("(apply add (list 1 2))");
-		assertEquals("define and apply", new Integer(3), Eval.eval(parsed, env));
-		assertEquals("define and apply a lambda", new Integer(9), Eval.eval(parser.parse("(square 3)"), env));
+		assertEquals("define and apply", 3, Eval.eval(parsed, env));
+		assertEquals("define and apply a lambda", 9, Eval.eval(parser.parse("(square 3)"), env));
 	}
 
 	@Test

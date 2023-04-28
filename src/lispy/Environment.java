@@ -80,7 +80,7 @@ public class Environment {
 		});
 
 		
-		env.put("pi", new Float(3.1415926f));
+		env.put("pi", 3.1415926f);
 		env.put("list", new ListFunction());
 		env.put("car", new CarFunction());
 		env.put("cdr", new CdrFunction());
