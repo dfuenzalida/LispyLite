@@ -1,27 +1,35 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
- 
+
   <groupId>org.dfuenzalida</groupId>
   <artifactId>lispy-lite</artifactId>
   <version>1.0</version>
 
   <properties>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.0</version>
+      <version>4.13.2</version>
       <type>jar</type>
       <scope>test</scope>
       <optional>true</optional>
     </dependency>
+
+    <dependency>
+      <groupId>org.openjdk.nashorn</groupId>
+      <artifactId>nashorn-core</artifactId>
+      <version>15.4</version>
+      <type>jar</type>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -31,6 +39,22 @@
     <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
     <sourceDirectory>${project.basedir}/src</sourceDirectory>
     <testSourceDirectory>${project.basedir}/tst</testSourceDirectory>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>lispy.Repl</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+
   </build>
 
 </project>
